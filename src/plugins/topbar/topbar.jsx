@@ -43,12 +43,12 @@ export default class Topbar extends React.Component {
   }
 
   setSearch = (spec) => {
-    let search = parseSearch()
-    search["urls.primaryName"] = spec.name
-    const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`
-    if(window && window.history && window.history.pushState) {
-      window.history.replaceState(null, "", `${newUrl}?${serializeSearch(search)}`)
-    }
+    // let search = parseSearch()
+    // search["urls.primaryName"] = spec.name
+    // const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`
+    // if(window && window.history && window.history.pushState) {
+    //   window.history.replaceState(null, "", `${newUrl}?${serializeSearch(search)}`)
+    // }
   }
 
   setSelectedUrl = (selectedUrl) => {
@@ -62,7 +62,7 @@ export default class Topbar extends React.Component {
           if(spec.url === selectedUrl)
             {
               this.setState({selectedIndex: i})
-              this.setSearch(spec)
+              //this.setSearch(spec)
             }
         })
       }

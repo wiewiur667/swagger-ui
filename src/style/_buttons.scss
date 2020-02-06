@@ -20,6 +20,16 @@
         padding: 4px 23px;
     }
 
+    &.btn-restart {
+        background-color:#f1ba23;
+        color: #fff;
+    }
+
+    &.btn-stop {
+        background-color:rgb(241, 54, 54);
+        color: #fff;
+    }
+
     &[disabled]
     {
         cursor: not-allowed;

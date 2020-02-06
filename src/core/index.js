@@ -31,6 +31,8 @@ export default function SwaggerUI(opts) {
     spec: {},
     url: "",
     urls: null,
+    instance: null,
+    instances: null,
     layout: "BaseLayout",
     docExpansion: "list",
     maxDisplayedTags: null,
@@ -131,7 +133,7 @@ export default function SwaggerUI(opts) {
 
   var system = store.getSystem()
 
-  const downloadSpec = (fetchedConfig) => {
+  const initSpec = (fetchedConfig) => {
     let localConfig = system.specSelectors.getLocalConfig ? system.specSelectors.getLocalConfig() : {}
     let mergedConfig = deepExtend({}, localConfig, constructorConfig, fetchedConfig || {}, queryConfig)
 
@@ -176,10 +178,10 @@ export default function SwaggerUI(opts) {
     loadRemoteConfig: true,
     requestInterceptor: constructorConfig.requestInterceptor,
     responseInterceptor: constructorConfig.responseInterceptor,
-  }, downloadSpec)) {
-    return downloadSpec()
+  }, initSpec)) {
+    return initSpec()
   } else {
-    system.specActions.getConfigByUrl(configUrl, downloadSpec)
+    system.specActions.getConfigByUrl(configUrl, initSpec)
   }
 
   return system

@@ -38,17 +38,17 @@ const devConfig = configBuilder(
       chunkFilename: "[id].js",
     },
 
-    devServer: {
-      port: 3200,
-      publicPath: "/",
-      disableHostCheck: true, // for development within VMs
-      stats: {
-        colors: true,
-      },
-      hot: true,
-      contentBase: path.join(__dirname, "../", "dev-helpers"),
-      host: "0.0.0.0",
-    },
+    // devServer: {
+    //   port: 3200,
+    //   publicPath: "/",
+    //   disableHostCheck: true, // for development within VMs
+    //   stats: {
+    //     colors: true,
+    //   },
+    //   hot: true,
+    //   contentBase: path.join(__dirname, "../", "dev-helpers"),
+    //   host: "0.0.0.0",
+    // },
 
     plugins: [new HotModuleReplacementPlugin()],
   }

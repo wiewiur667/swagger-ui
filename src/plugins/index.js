@@ -1,7 +1,9 @@
 import Configs from "./configs"
-import Topbar from "./topbar"
+import MockServer from "./mock-server"
+import TopbarMockInstnances from "./topbar-mock-instances"
 
 export default {
   Configs,
-  Topbar
+  MockServer,
+  TopbarMockInstnances
 }

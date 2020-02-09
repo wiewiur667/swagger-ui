@@ -3,8 +3,7 @@ var express = require("express")
 var webpack = require("webpack")
 var debug = require("debug")
 var config = require("../webpack/dev.babel.js").default
-
-import Socket from "./socket"
+var cfg = require("./api/config")
 
 //var browserSync = require("browser-sync")
 
@@ -40,8 +39,8 @@ var api = require("./api")
 
 app.use("/api", api.router)
 
-var port = 3000
-var hostname = "localhost"
+var port = cfg.config.port;
+var hostname = cfg.config.host;
 
 var server = http.createServer(app)
 

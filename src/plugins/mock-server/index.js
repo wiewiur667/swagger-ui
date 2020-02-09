@@ -4,12 +4,13 @@ import * as selectors from "./selectors"
 import InstanceController from "./instanceController"
 
 import socketIOClient from "socket.io-client"
+import * as cfg from "../../config"
 
 export default function(system) {
   return {
     afterLoad(system) {
       this.rootInjects = this.rootInjects || {}
-      const io = socketIOClient("http://127.0.0.1:3000/socket")
+      const io = socketIOClient(`${cfg.config.socketHost}/socket`)
       this.rootInjects.socketIO = io
       
       io.on("connect", ()=> {

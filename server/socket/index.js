@@ -1,6 +1,5 @@
 import Instance from "../api/instance"
 import fs from "fs"
-import { distinctUntilKeyChanged, distinct } from "rxjs/operators"
 
 export default class Socket {
   constructor(io, instanceManager) {

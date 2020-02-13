@@ -34,19 +34,23 @@ export default class InstanceContoller extends React.Component {
 
     return (
       <div className="instance-controller">
-        <div className="instance-info">
-          <a href={url}>{url}</a>
-          <span>Status: {currentInstance.status}</span>
+        <div className="row">
+          <div className="instance-info ">
+            <a href={url}>{url}</a>
+            <span>Status: {currentInstance.status}</span>
+          </div>
+          <div className="instance-url">
+          </div>
+          <div className="instance-buttons">
+            <button className="btn btn-restart" onClick={(e)=> this.restartInstance(e)}>Restart</button>
+            {isWorking && 
+              <button className="btn btn-stop" onClick={(e)=> this.stopInstance(e)}>STOP</button>
+            }
+          </div>
         </div>
-        <div className="instance-url">
-        </div>
-        <div className="instance-buttons">
-          <button className="btn btn-restart" onClick={(e)=> this.restartInstance(e)}>Restart</button>
-          {isWorking && 
-            <button className="btn btn-stop" onClick={(e)=> this.stopInstance(e)}>STOP</button>
-          }
-        </div>
+        <div className="instance-log row"><pre>{currentInstance.log.join("\r\n")}</pre></div>
       </div>
+      
     )
   }
 }

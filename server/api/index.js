@@ -19,7 +19,7 @@ const init = (io) => {
   const instanceManager = new InstanceManager();
   const socket = new Socket(io, instanceManager);
 
-  dirHandler.watchFiles("schemas");
+  dirHandler.watchFiles("../../schemas");
 
   instanceManager.fromFileWatcher(dirHandler.changesAndAdditions)
 

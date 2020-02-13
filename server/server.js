@@ -18,6 +18,10 @@ var log = debug("app:devServer")
 
 // app.use(history({ verbose: false }));
 
+var api = require("./api")
+
+app.use("/api", api.router)
+
 log("Enabling webpack dev middleware.")
 app.use(require("webpack-dev-middleware")(compiler, {
   publicPath: "/",
@@ -35,9 +39,7 @@ app.get("/", (req, res)=> {
   res.sendFile(path.join(__dirname, "../", "dev-helpers", "index.html"));
 })
 
-var api = require("./api")
 
-app.use("/api", api.router)
 
 var port = cfg.config.port;
 var hostname = cfg.config.host;

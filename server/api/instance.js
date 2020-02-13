@@ -13,6 +13,7 @@ export default class Instance {
     this.handler = null
     this.status = null
     this.error = null
+    this.log = []
 
     this.options = {
       host: "127.0.0.1",
@@ -44,32 +45,36 @@ export default class Instance {
   }
 
   async createHandler (file = this.file) {
-    this.error = null
-    this._updateStatus(Instance.statusType.SPINNING_UP)
+    const that = this;
+    that.error = null
+    that._updateStatus(Instance.statusType.SPINNING_UP)
 
-    this.port = await getPort({ host: this.options.host, port: getPort.makeRange(this.options.portRange[0], this.options.portRange[1]) })
+    that.port = await getPort({ host: that.options.host, port: getPort.makeRange(that.options.portRange[0], that.options.portRange[1]) })
 
-    const command = `prism mock -p ${this.port} "${this.file}"`
+    const command = `prism mock -p ${that.port} -d "${that.file}"`
     const prism = await exec(command)
 
     prism.stdout.on("data", (data) => {
+      that.log.push(data);
+      if(that.log.length >10){
+        that.log.shift()
+      }
+      that._updateStatus(Instance.statusType.WORKING)
       if (data.indexOf("Prism is listening") > 0) {
         const prismPort = /:(\d{3,})/.exec(data)[1]
 
-        if (parseInt(prismPort) === this.port) {
-          this.handler = prism
-
-          this._updateStatus(Instance.statusType.WORKING)
+        if (parseInt(prismPort) === that.port) {
+          that.handler = prism          
         }
       } else if (data.indexOf("fatal") > 0) {
-        this.error = data
-        this._updateStatus(Instance.statusType.ERROR)
+        that.error = data
+        that._updateStatus(Instance.statusType.ERROR)
       }
     })
 
     prism.stderr.on("data", (data) => {
-      this.error = data
-      this._updateStatus(Instance.statusType.ERROR)
+      that.error = data
+      that._updateStatus(Instance.statusType.ERROR)
     })
   }
 
@@ -114,7 +119,8 @@ export default class Instance {
       port: instance.port,
       status: instance.status,
       error: instance.error,
-      url: instance.url
+      url: instance.url,
+      log: instance.log
     }
   }
 }

@@ -4,6 +4,13 @@
 
   display:flex;
   justify-content:space-between;
+  
+  flex-direction: column;
+
+  .row {
+    display:flex;
+    justify-content: space-between;
+  }
 
   .instance-info {
     display:flex;
@@ -16,6 +23,9 @@
     button {
       margin-right:1em;
     }
-    
+  }
+  .instance-log {
+    display:block;
+    width:100%;
   }
 }
